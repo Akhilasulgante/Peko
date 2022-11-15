@@ -34,4 +34,18 @@ router.post("/register", async (req, res) => {
   }
 });
 
+router.post("/login", async (req, res) => {
+  console.log("sending to login req backend");
+  // res.status(200);
+  try {
+    let dbstate = await databaseManager.auth("users", req.body);
+    res.status(200).json({ success: true });
+    if (dbstate) {
+      console.log("in db");
+    }
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 module.exports = router;

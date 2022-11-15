@@ -33,7 +33,7 @@ function MyMongoDB() {
     console.log(data.email);
     try {
       let res = await usersCol.findOne({ email: data.email });
-      console.log("password", res.password, " data ", data.password);
+      console.log("password", res.password, "data ", data.password);
       if (res?.password === data.password) {
         console.log("authenticated");
         return true;

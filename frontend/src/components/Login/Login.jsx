@@ -1,8 +1,30 @@
 import React, { useState } from "react";
 import landbg from "../../Images/landbg.jpg";
+import { useNavigate } from "react-router-dom";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  console.log("loginskjdfbsu dfuhs");
+  const handlelogin = async (e) => {
+    e.preventDefault();
+    console.log("calling handlesubmit");
+    try {
+      let res = await fetch("http://localhost:5001/login", {
+        method: "POST",
+        body: new URLSearchParams({
+          email,
+          password,
+        }),
+      });
+      const reg = await res.json();
+      console.log("in reg valeu", reg);
+
+      // navigate("/main");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div>
@@ -15,11 +37,10 @@ export default function Login() {
                   className="fas fa-crow fa-2x me-3 pt-5 mt-xl-4"
                   style={{ color: "#709085" }}
                 ></i>
-                <span className="h1 fw-bold mb-0">Logo</span>
               </div>
 
               <div className="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-                <form style={{ width: "23rem" }}>
+                <form onSubmit={handlelogin}>
                   <h3
                     className="fw-normal mb-3 pb-3"
                     style={{ letterspacing: "1px" }}
@@ -31,6 +52,8 @@ export default function Login() {
                     <input
                       type="email"
                       id="form2Example18"
+                      name="email"
+                      onChange={(e) => setEmail(e.target.value)}
                       className="form-control form-control-lg"
                     />
                     <label className="form-label">Email address</label>
@@ -40,6 +63,8 @@ export default function Login() {
                     <input
                       type="password"
                       id="form2Example28"
+                      name="password"
+                      onChange={(e) => setPassword(e.target.value)}
                       className="form-control form-control-lg"
                     />
                     <label className="form-label">Password</label>
@@ -47,18 +72,13 @@ export default function Login() {
 
                   <div className="pt-1 mb-4">
                     <button
-                      className="btn btn-info btn-lg btn-block"
-                      type="button"
+                      type="submit"
+                      className="btn btn-primary btn-block mb-4"
                     >
-                      Login
+                      Log up
                     </button>
                   </div>
 
-                  <p className="small mb-5 pb-lg-2">
-                    <a className="text-muted" href="#!">
-                      Forgot password?
-                    </a>
-                  </p>
                   <p>
                     Don't have an account?{" "}
                     <a href="/register" className="link-info">

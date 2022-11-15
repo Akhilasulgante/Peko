@@ -12,6 +12,7 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    navigate("/", { replace: true });
     console.log(fname);
     try {
       let res = await fetch("http://localhost:5001/register", {
@@ -23,10 +24,9 @@ export default function Register() {
           password,
         }),
       });
+      navigate("/main", { replace: true });
       const reg = await res.json();
       console.log("in reg valeu", reg);
-
-      navigate("/main");
     } catch (err) {
       console.log(err);
     }
