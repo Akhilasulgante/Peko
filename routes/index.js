@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+
 const databaseManager = require("../db/MyMongoDB");
 
 /* GET all dishes. */
@@ -18,6 +19,11 @@ router.post("/api/dishes", async (req, res) => {
     console.log("err", err);
   }
   res.json(data);
+});
+
+router.post("/register", async (req, res) => {
+  console.log("sending to backend", req.body.fname);
+  res.status(200);
 });
 
 module.exports = router;

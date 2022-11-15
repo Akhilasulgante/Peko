@@ -23,6 +23,40 @@ function MyMongoDB() {
       client.close();
     }
   };
+  // myDB.auth = async (collectionName, data) => {
+  //   let client = new MongoClient(url);
+  //   await client.connect();
+  //   let db = client.db(DB_NAME);
+  //   let usersCol = db.collection(collectionName);
+  //   console.log(data.email);
+  //   try {
+  //     let res = await usersCol.findOne({ email: data.email });
+  //     console.log("password", res.password, " data ", data.password);
+  //     if (res?.password === data.password) {
+  //       console.log("authenticated");
+  //       return true;
+  //     }
+  //   } catch (e) {
+  //     console.log("in catch", e);
+  //   }
+  //   return false;
+  // };
+
+  myDB.insertuser = async (collectionName, data) => {
+    const client = new MongoClient(url);
+    await client.connect();
+    let db = client.db(DB_NAME);
+    let usersCol = db.collection(collectionName);
+    console.log(data.email);
+    let res = await usersCol.insertOne({
+      FirstName: data.fname,
+      LastName: data.lname,
+      email: data.email,
+      password: data.password,
+    });
+    console.log("created user");
+    return true;
+  };
 
   return myDB;
 }
