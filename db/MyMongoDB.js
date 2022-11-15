@@ -2,8 +2,10 @@ const { MongoClient } = require("mongodb");
 
 function MyMongoDB() {
   const myDB = {};
-  const url = process.env.DB_URL || "mongodb://localhost:27017";
-  const DB_NAME = "quick-food-ordering-db";
+  // const url = process.env.DB_URL || "mongodb://localhost:27017";
+  const url =
+    "mongodb+srv://Akhila:Akhila123456@cluster0.ey28j77.mongodb.net/test";
+  const DB_NAME = "food";
 
   myDB.read = async (collectionName, query) => {
     let client;
@@ -23,41 +25,48 @@ function MyMongoDB() {
       client.close();
     }
   };
-  // myDB.auth = async (collectionName, data) => {
-  //   let client = new MongoClient(url);
-  //   await client.connect();
-  //   let db = client.db(DB_NAME);
-  //   let usersCol = db.collection(collectionName);
-  //   console.log(data.email);
-  //   try {
-  //     let res = await usersCol.findOne({ email: data.email });
-  //     console.log("password", res.password, " data ", data.password);
-  //     if (res?.password === data.password) {
-  //       console.log("authenticated");
-  //       return true;
-  //     }
-  //   } catch (e) {
-  //     console.log("in catch", e);
-  //   }
-  //   return false;
-  // };
-
-  myDB.insertuser = async (collectionName, data) => {
-    const client = new MongoClient(url);
+  myDB.auth = async (collectionName, data) => {
+    let client = new MongoClient(url);
     await client.connect();
     let db = client.db(DB_NAME);
     let usersCol = db.collection(collectionName);
     console.log(data.email);
-    let res = await usersCol.insertOne({
-      FirstName: data.fname,
-      LastName: data.lname,
-      email: data.email,
-      password: data.password,
-    });
-    console.log("created user");
-    return true;
+    try {
+      let res = await usersCol.findOne({ email: data.email });
+      console.log("password", res.password, " data ", data.password);
+      if (res?.password === data.password) {
+        console.log("authenticated");
+        return true;
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      client.close();
+    }
+    return false;
   };
 
+  myDB.insertuser = async (collectionName, data) => {
+    const connection = new MongoClient(url);
+    await connection.connect();
+    const db = connection.db(DB_NAME);
+    const colname = db.collection(collectionName);
+    try {
+      console.log(data);
+      let res = await colname.insertOne({
+        FirstName: data.fname,
+        LastName: data.lname,
+        email: data.email,
+        password: data.password,
+      });
+      return true;
+    } catch (e) {
+      console.log(e);
+    } finally {
+      connection.close();
+    }
+    return false;
+  };
   return myDB;
 }
 

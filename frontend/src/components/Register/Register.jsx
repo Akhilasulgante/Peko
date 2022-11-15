@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import "../Register/Register.css";
+import { useNavigate } from "react-router-dom";
+
 export default function Register() {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -12,12 +16,17 @@ export default function Register() {
     try {
       let res = await fetch("http://localhost:5001/register", {
         method: "POST",
-        body: JSON.stringify({
+        body: new URLSearchParams({
           fname: fname,
+          lname,
+          email,
+          password,
         }),
       });
       const reg = await res.json();
-      console.log(reg);
+      console.log("in reg valeu", reg);
+
+      navigate("/main");
     } catch (err) {
       console.log(err);
     }

@@ -23,7 +23,15 @@ router.post("/api/dishes", async (req, res) => {
 
 router.post("/register", async (req, res) => {
   console.log("sending to backend", req.body.fname);
-  res.status(200);
+  // res.status(200);
+  try {
+    let dbstate = await databaseManager.insertuser("users", req.body);
+    if (dbstate) {
+      res.status(200).json({ success: true });
+    }
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 module.exports = router;
