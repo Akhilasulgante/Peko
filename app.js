@@ -13,11 +13,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "frontend/build")));
 app.use(bodyParser.json());
 
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
+// app.use(
+//   bodyParser.urlencoded({
+//     extended: true,
+//   })
+// );
 app.use("/", indexRouter);
 
 app.listen(process.env.PORT || 5001, () => {

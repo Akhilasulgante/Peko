@@ -2,9 +2,7 @@ const { MongoClient } = require("mongodb");
 
 function MyMongoDB() {
   const myDB = {};
-  // const url = process.env.DB_URL || "mongodb://localhost:27017";
-  const url =
-    "mongodb+srv://Akhila:Akhila123456@cluster0.ey28j77.mongodb.net/test";
+  const url = process.env.DB_URL || "mongodb://localhost:27017";
   const DB_NAME = "food";
 
   myDB.read = async (collectionName, query) => {
@@ -25,6 +23,8 @@ function MyMongoDB() {
       client.close();
     }
   };
+
+  //Akhila Sulgante
   myDB.auth = async (collectionName, data) => {
     let client = new MongoClient(url);
     await client.connect();
@@ -41,7 +41,7 @@ function MyMongoDB() {
     } catch (e) {
       console.log(e);
     } finally {
-      client.close();
+      await client.close();
     }
     return false;
   };
@@ -63,7 +63,7 @@ function MyMongoDB() {
     } catch (e) {
       console.log(e);
     } finally {
-      connection.close();
+      await connection.close();
     }
     return false;
   };

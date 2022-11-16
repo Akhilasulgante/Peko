@@ -21,6 +21,7 @@ router.post("/api/dishes", async (req, res) => {
   res.json(data);
 });
 
+//Akhila
 router.post("/register", async (req, res) => {
   console.log("sending to backend", req.body.fname);
   // res.status(200);
