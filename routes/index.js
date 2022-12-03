@@ -33,4 +33,10 @@ router.post("/api/filterMeals", async (req, res) => {
   res.json(data);
 });
 
+// When clicking the refresh button of the brower in the url like /meals,
+// there will be a cannot get /meals error. This is because the browser 
+// will make a GET request to /meals which will fail since there is no logic
+// for handling that request. Here is a blog about this:
+// https://ui.dev/react-router-cannot-get-url-refresh
+
 export default router;
