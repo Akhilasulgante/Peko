@@ -173,4 +173,6 @@ function MyMongoDB() {
   return myDB;
 }
 
+// CRUD is not fully implemented in the dishes collection
+
 export const databaseManager = MyMongoDB();
