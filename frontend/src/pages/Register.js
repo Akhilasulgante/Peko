@@ -1,4 +1,7 @@
 //Akhila
+// I noticed there are a couple of style attributes in this page
+// Maybe these can be put into a separate css file 
+// You could organize the js and css the same way you did for the Components
 import React from "react";
 import SignUp from "../components/SignUp/SignUp";
 import url from "../images/backdrop.jpg";

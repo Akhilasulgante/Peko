@@ -1,5 +1,8 @@
 //Akhila
 //Did not use proptypes as it was not required
+// I think the alt text for your images could be a bit more descriptive 
+// For example, I can't quite picture what animation home is 
+// You could describe the appeareance of the house (yellow house, with two windows etc)
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import url from "../../images/logincss-bg.png";
